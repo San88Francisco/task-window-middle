@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Windows from './components/Windowss';
+import Windows from './components/Windows';
 
 const App = () => {
   return (
@@ -12,3 +12,5 @@ const App = () => {
 };
 
 export default App;
+
+
