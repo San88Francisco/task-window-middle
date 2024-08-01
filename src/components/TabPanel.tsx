@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react';
 import { Box } from '@mui/material';
 
-interface TabPanelProps {
+type TypeProps = {
   value: string;
   activeValue: string;
   children: ReactNode;
-}
+};
 
 const tabPanelStyles = {
   padding: '20px',
@@ -13,7 +13,7 @@ const tabPanelStyles = {
   borderTop: 'none',
 };
 
-const TabPanel: FC<TabPanelProps> = ({ value, activeValue, children }) => {
+const TabPanel: FC<TypeProps> = ({ value, activeValue, children }) => {
   if (value !== activeValue) return null;
 
   return <Box style={tabPanelStyles}>{children}</Box>;

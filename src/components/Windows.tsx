@@ -1,13 +1,15 @@
-import React, { useState, useEffect, FC, useCallback } from 'react';
+import { useState, useEffect, useCallback, FC } from 'react';
 import { Box } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import TabPanel from './TabPanel';
+import ToFaster from './ToFasten';
+import TabsSection from './TabsSection';
+import ContextMenu from './ContextMenu';
+import ActionButtons from './AddBtn';
 import { encodeTabOrder } from '../utils/encoding';
 import { decodeTabOrder } from '../utils/decoding';
 import { initialTabs } from '../utils/constants';
-import TabGroup from './TabGroup';
 import { TabType } from '../types/TabType';
-import ToFaster from './ToFasten';
 
 const Windows: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +23,7 @@ const Windows: FC = () => {
   const [activeTab, setActiveTab] = useState<string>(initialActiveTab);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [contextMenuTab, setContextMenuTab] = useState<string | null>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
 
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams);
@@ -52,35 +55,64 @@ const Windows: FC = () => {
         const updatedTabs = prevTabs.map(tab =>
           tab.value === contextMenuTab ? { ...tab, pinned: !tab.pinned } : tab,
         );
-        const pinnedTabs = updatedTabs.filter(tab => tab.pinned);
-        const unpinnedTabs = updatedTabs.filter(tab => !tab.pinned);
-        return [...pinnedTabs, ...unpinnedTabs];
+        return sortTabs(updatedTabs);
       });
       setAnchorEl(null);
     }
   }, [contextMenuTab]);
 
-  const handleClose = useCallback(() => setAnchorEl(null), []);
+  const handleClose = useCallback(() => {
+    setAnchorEl(null);
+    setMenuAnchorEl(null);
+  }, []);
 
-  const handleReorder = useCallback((newTabs: TabType[]) => setTabs(newTabs), []);
+  const handleReorder = useCallback((newTabs: TabType[]) => setTabs(sortTabs(newTabs)), []);
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (value: string) => {
+    setTabs(prevTabs => {
+      const selectedTab = prevTabs.find(tab => tab.value === value);
+      if (!selectedTab) return prevTabs;
+
+      const updatedTabs = prevTabs.filter(tab => tab.value !== value);
+      return sortTabs([selectedTab, ...updatedTabs]);
+    });
+  };
+
+  const sortTabs = (tabs: TabType[]) => {
+    const pinnedTabs = tabs.filter(tab => tab.pinned);
+    const unpinnedTabs = tabs.filter(tab => !tab.pinned);
+    return [...pinnedTabs, ...unpinnedTabs];
+  };
 
   const pinnedTabs = tabs.filter(tab => tab.pinned);
   const unpinnedTabs = tabs.filter(tab => !tab.pinned);
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ display: 'flex', width: '100%' }}>
-        <TabGroup
-          tabs={pinnedTabs}
-          onReorder={newPinnedTabs => handleReorder([...newPinnedTabs, ...unpinnedTabs])}
-          onClick={handleTabClick}
-          onContextMenu={handleContextMenu}
+    <Box>
+      <Box display="flex">
+        <ActionButtons />
+        <TabsSection
+          pinnedTabs={pinnedTabs}
+          unpinnedTabs={unpinnedTabs}
+          handleReorder={handleReorder}
+          handleTabClick={handleTabClick}
+          handleContextMenu={handleContextMenu}
         />
-        <TabGroup
-          tabs={unpinnedTabs}
-          onReorder={newUnpinnedTabs => handleReorder([...pinnedTabs, ...newUnpinnedTabs])}
-          onClick={handleTabClick}
-          onContextMenu={handleContextMenu}
+        <ContextMenu
+          anchorEl={menuAnchorEl}
+          open={!!menuAnchorEl}
+          tabs={tabs}
+          handleMenuItemClick={handleMenuItemClick}
+          handleMenuClose={handleMenuClose}
+          handleMenuClick={handleMenuClick}
         />
       </Box>
       {tabs.map(tab => (

@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { Menu, MenuItem } from '@mui/material';
 
-interface ToFasterProps {
+type TypeProps = {
   anchorEl: HTMLElement | null;
   onClose: () => void;
   onPin: () => void;
-}
+};
 
 const menuStyles = {
   '& .MuiMenu-paper': {},
@@ -14,7 +14,7 @@ const menuStyles = {
   },
 };
 
-const ToFaster: React.FC<ToFasterProps> = ({ anchorEl, onClose, onPin }) => {
+const ToFaster: FC<TypeProps> = ({ anchorEl, onClose, onPin }) => {
   return (
     <Menu sx={menuStyles} anchorEl={anchorEl} open={!!anchorEl} onClose={onClose}>
       <MenuItem

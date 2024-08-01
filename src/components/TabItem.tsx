@@ -2,7 +2,7 @@ import { FC, useState, useCallback, useEffect, MouseEvent } from 'react';
 import { Box } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 
-interface TabItemProps {
+type TypeProps  = {
   label: string;
   value: string;
   isActive: boolean;
@@ -11,10 +11,22 @@ interface TabItemProps {
   onContextMenu: (event: MouseEvent, value: string) => void;
 }
 
-const TabItem: FC<TabItemProps> = ({ label, value, isActive, pinned, onClick, onContextMenu }) => {
+const TabItem: FC<TypeProps> = ({ label, value, isActive, pinned, onClick, onContextMenu }) => {
   const [isPressed, setIsPressed] = useState(false);
 
-  const baseStyles = {
+
+  const focusStyles = {
+    color: '#FFFFFF',
+    backgroundColor: '#7F858D',
+    transform: 'translate(7px, 3px)',
+    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
+  };
+
+  const hoverStyles = {
+    backgroundColor: '#e0e0e0',
+  };
+
+  const getTabStyles = () => ({
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
@@ -24,21 +36,12 @@ const TabItem: FC<TabItemProps> = ({ label, value, isActive, pinned, onClick, on
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  };
-
-  const focusStyles = {
-    color: '#FFFFFF',
-    backgroundColor: '#7F858D',
     position: 'relative',
-    transform: 'translate(7px, 3px)',
-    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
-  };
-
-  const getTabStyles = () => ({
-    ...baseStyles,
-    borderBottom: isActive ? '2px solid #1976d2' : '2px solid transparent',
+    borderTop: isActive ? '4px solid #1976d2' : '2px solid transparent',
     fontFamily: 'Poppins',
-    ...(isPressed && focusStyles),
+    ...(isPressed ? focusStyles : null),
+    '&:hover': !isPressed ? hoverStyles : null,
+    '&:active': focusStyles,
   });
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const TabItem: FC<TabItemProps> = ({ label, value, isActive, pinned, onClick, on
     >
       {label}
       {pinned && (
-        <Box component="span" sx={{ marginLeft: '8px' }}>
+        <Box component="span" sx={{ ml: '5px' }}>
           <BookmarkTwoToneIcon sx={{ fontSize: 20 }} />
         </Box>
       )}
