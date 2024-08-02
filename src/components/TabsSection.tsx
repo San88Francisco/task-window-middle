@@ -9,6 +9,7 @@ type TypeProps = {
   handleReorder: (newTabs: TabType[]) => void;
   handleTabClick: (value: string) => void;
   handleContextMenu: (event: MouseEvent, value: string) => void;
+  handleDoubleClick: (value: string) => void;
 };
 
 const TabsSection: FC<TypeProps> = ({
@@ -17,6 +18,7 @@ const TabsSection: FC<TypeProps> = ({
   handleReorder,
   handleTabClick,
   handleContextMenu,
+  handleDoubleClick,
 }) => {
   return (
     <Box
@@ -45,12 +47,14 @@ const TabsSection: FC<TypeProps> = ({
         onReorder={newPinnedTabs => handleReorder([...newPinnedTabs, ...unpinnedTabs])}
         onClick={handleTabClick}
         onContextMenu={handleContextMenu}
+        onDoubleClick={handleDoubleClick}
       />
       <TabGroup
         tabs={unpinnedTabs}
         onReorder={newUnpinnedTabs => handleReorder([...pinnedTabs, ...newUnpinnedTabs])}
         onClick={handleTabClick}
         onContextMenu={handleContextMenu}
+        onDoubleClick={handleDoubleClick}
       />
     </Box>
   );

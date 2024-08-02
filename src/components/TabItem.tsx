@@ -2,18 +2,27 @@ import { FC, useState, useCallback, useEffect, MouseEvent } from 'react';
 import { Box } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 
-type TypeProps  = {
+type TypeProps = {
   label: string;
   value: string;
   isActive: boolean;
   pinned: boolean;
   onClick: (value: string) => void;
   onContextMenu: (event: MouseEvent, value: string) => void;
-}
+  onDoubleClick: (value: string) => void;
+};
 
-const TabItem: FC<TypeProps> = ({ label, value, isActive, pinned, onClick, onContextMenu }) => {
+const TabItem: FC<TypeProps> = ({
+  label,
+  value,
+  isActive,
+  pinned,
+  onClick,
+  onContextMenu,
+  onDoubleClick,
+}) => {
   const [isPressed, setIsPressed] = useState(false);
-
+  const [lastClick, setLastClick] = useState<number | null>(null);
 
   const focusStyles = {
     color: '#FFFFFF',
@@ -61,8 +70,15 @@ const TabItem: FC<TypeProps> = ({ label, value, isActive, pinned, onClick, onCon
   }, []);
 
   const handleClick = useCallback(() => {
-    onClick(value);
-  }, [onClick, value]);
+    const now = Date.now();
+    if (lastClick && now - lastClick < 300) {
+      onDoubleClick(value);
+      setLastClick(null);
+    } else {
+      setLastClick(now);
+      onClick(value);
+    }
+  }, [onClick, onDoubleClick, lastClick, value]);
 
   const handleContextMenu = useCallback(
     (event: MouseEvent) => {

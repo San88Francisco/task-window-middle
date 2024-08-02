@@ -8,9 +8,16 @@ type TabGroupProps = {
   onReorder: (tabs: TabType[]) => void;
   onClick: (value: string) => void;
   onContextMenu: (event: MouseEvent, value: string) => void;
+  onDoubleClick: (value: string) => void;
 };
 
-const TabGroup: FC<TabGroupProps> = ({ tabs, onReorder, onClick, onContextMenu }) => (
+const TabGroup: FC<TabGroupProps> = ({
+  tabs,
+  onReorder,
+  onClick,
+  onContextMenu,
+  onDoubleClick,
+}) => (
   <Reorder.Group
     values={tabs}
     onReorder={onReorder as (newTabs: TabType[]) => void}
@@ -26,6 +33,7 @@ const TabGroup: FC<TabGroupProps> = ({ tabs, onReorder, onClick, onContextMenu }
           pinned={!!tab.pinned}
           onClick={onClick}
           onContextMenu={onContextMenu}
+          onDoubleClick={onDoubleClick}
         />
       </Reorder.Item>
     ))}

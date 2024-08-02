@@ -86,6 +86,16 @@ const Windows: FC = () => {
     });
   };
 
+  const handleDoubleClick = useCallback((value: string) => {
+    setTabs(prevTabs => {
+      const tabToMove = prevTabs.find(tab => tab.value === value);
+      if (!tabToMove) return prevTabs;
+
+      const updatedTabs = prevTabs.filter(tab => tab.value !== value);
+      return sortTabs([tabToMove, ...updatedTabs]);
+    });
+  }, []);
+
   const sortTabs = (tabs: TabType[]) => {
     const pinnedTabs = tabs.filter(tab => tab.pinned);
     const unpinnedTabs = tabs.filter(tab => !tab.pinned);
@@ -105,6 +115,7 @@ const Windows: FC = () => {
           handleReorder={handleReorder}
           handleTabClick={handleTabClick}
           handleContextMenu={handleContextMenu}
+          handleDoubleClick={handleDoubleClick}
         />
         <ContextMenu
           anchorEl={menuAnchorEl}
