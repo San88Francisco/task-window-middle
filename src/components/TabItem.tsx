@@ -12,7 +12,6 @@ type TypeProps = {
   onClick: (value: string) => void;
   onContextMenu: (event: MouseEvent, value: string) => void;
   onDoubleClick: (value: string) => void;
-  onDelete: (value: string) => void;
 };
 
 const TabItem: FC<TypeProps> = ({
@@ -23,7 +22,6 @@ const TabItem: FC<TypeProps> = ({
   onClick,
   onContextMenu,
   onDoubleClick,
-  onDelete,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const lastClickRef = useRef<number | null>(null);
@@ -59,14 +57,6 @@ const TabItem: FC<TypeProps> = ({
       onContextMenu(event, value);
     },
     [onContextMenu, value],
-  );
-
-  const handleDelete = useCallback(
-    (event: MouseEvent) => {
-      event.stopPropagation();
-      onDelete(value);
-    },
-    [onDelete, value],
   );
 
   return (
