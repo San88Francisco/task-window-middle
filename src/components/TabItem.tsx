@@ -1,6 +1,7 @@
 import { FC, useState, useCallback, useEffect, MouseEvent, useRef } from 'react';
 import { Box } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { tabStyles, focusStyles } from '../style/style';
 
 type TypeProps = {
@@ -11,6 +12,7 @@ type TypeProps = {
   onClick: (value: string) => void;
   onContextMenu: (event: MouseEvent, value: string) => void;
   onDoubleClick: (value: string) => void;
+  onDelete: (value: string) => void;
 };
 
 const TabItem: FC<TypeProps> = ({
@@ -21,6 +23,7 @@ const TabItem: FC<TypeProps> = ({
   onClick,
   onContextMenu,
   onDoubleClick,
+  onDelete,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const lastClickRef = useRef<number | null>(null);
@@ -35,8 +38,8 @@ const TabItem: FC<TypeProps> = ({
     };
   }, []);
 
-  const handleMouseDown = useCallback((event: MouseEvent) => {
-    setIsPressed(!event.button);
+  const handleMouseDown = useCallback(() => {
+    setIsPressed(true);
   }, []);
 
   const handleClick = useCallback(() => {
@@ -55,7 +58,15 @@ const TabItem: FC<TypeProps> = ({
       event.preventDefault();
       onContextMenu(event, value);
     },
-    [onContextMenu],
+    [onContextMenu, value],
+  );
+
+  const handleDelete = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation();
+      onDelete(value);
+    },
+    [onDelete, value],
   );
 
   return (
@@ -65,7 +76,44 @@ const TabItem: FC<TypeProps> = ({
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}
     >
-      {label}
+      <Box
+        sx={{
+          flexGrow: 1,
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+        }}
+      >
+        <Box
+          className="label"
+          sx={{
+            flex: '1 1 0',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            maxWidth: '100%',
+          }}
+        >
+          {label}
+        </Box>
+        <Box
+          className="deleteIcon"
+          sx={{
+            display: 'none',
+            position: 'absolute',
+            right: 0,
+            cursor: 'pointer',
+            alignItems: 'center',
+            width: '30px',
+            height: '100%',
+            justifyContent: 'center',
+          }}
+          onClick={handleDelete}
+        >
+          <HighlightOffIcon sx={{ color: '#d32f2f' }} />
+        </Box>
+      </Box>
       {pinned && (
         <Box component="span" sx={{ ml: '5px' }}>
           <BookmarkTwoToneIcon sx={{ fontSize: 20 }} />

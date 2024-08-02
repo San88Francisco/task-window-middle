@@ -29,6 +29,7 @@ export const focusStyles: FocusStyles = {
   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };
 
+
 export const tabStyles = ({
   isActive,
   isPressed,
@@ -39,17 +40,24 @@ export const tabStyles = ({
   cursor: 'pointer',
   padding: '10px',
   height: 50,
-  transition: 'all 0.3s ease',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
   position: 'relative',
   borderTop: isActive ? '4px solid #1976d2' : '2px solid transparent',
   fontFamily: 'Poppins',
+  overflow: 'hidden', 
   ...(isPressed ? focusStyles : null),
-  '&:hover': !isPressed ? { backgroundColor: '#e0e0e0' } : null,
+
+  '&:hover': isPressed ? null : { backgroundColor: '#e0e0e0' },
+  '&:hover .deleteIcon': isPressed ? null : {
+    display: 'flex',
+  },
+  '&:hover .label': isPressed ? null : {
+    maxWidth: 'calc(100% - 40px)',
+  },
   '&:active': isPressed ? focusStyles : null,
 });
+
+
+
 
 export const tabPanelStyles = {
   padding: '20px',
