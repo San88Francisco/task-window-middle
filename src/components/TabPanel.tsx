@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Box } from '@mui/material';
+import { tabPanelStyles } from '../style/style';
 
 type TypeProps = {
   value: string;
@@ -7,11 +8,7 @@ type TypeProps = {
   children: ReactNode;
 };
 
-const tabPanelStyles = {
-  padding: '20px',
-  border: '1px solid #ddd',
-  borderTop: 'none',
-};
+
 
 const TabPanel: FC<TypeProps> = ({ value, activeValue, children }) => {
   if (value !== activeValue) return null;

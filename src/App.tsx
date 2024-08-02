@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Windows from './components/Windows';
+import Windows from './page/Windows';
 
 const App = () => {
   return (

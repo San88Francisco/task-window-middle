@@ -29,7 +29,7 @@ const TabGroup: FC<TabGroupProps> = ({
         <TabItem
           label={tab.label}
           value={tab.value}
-          isActive={tab.selected || false}
+          isActive={!!tab.selected}
           pinned={!!tab.pinned}
           onClick={onClick}
           onContextMenu={onContextMenu}

@@ -1,8 +1,9 @@
 import { FC, MouseEvent } from 'react';
-import { Menu, MenuItem, Box } from '@mui/material';
+import { Menu, MenuItem, Typography } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 import { TabType } from '../types/TabType';
-import { ViewMoreBtn } from './ViewMoreBtn';
+import { ViewMoreBtn } from './Btn/ViewMoreBtn';
+import { contextMenuItemsStyles, contextMenuStyles } from '../style/style';
 
 type TypeProps = {
   anchorEl: null | HTMLElement;
@@ -30,38 +31,23 @@ const ContextMenu: FC<TypeProps> = ({
       open={open}
       onClose={handleMenuClose}
       PaperProps={{
-        style: {
-          maxHeight: 48 * 10.5,
-          width: 200,
-          borderRadius: 8,
-          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-        },
+        style: contextMenuStyles,
       }}
     >
       {tabs.map(option => (
         <MenuItem
           key={option.value}
           onClick={() => handleMenuItemClick(option.value)}
-          sx={{
-            fontSize: '16px',
-            fontWeight: '400',
-            color: '#333',
-            '&:hover': {
-              backgroundColor: '#f5f5f5',
-              color: '#000',
-            },
-            '&:focus': {
-              backgroundColor: '#e0e0e0',
-              color: '#000',
-            },
-          }}
+          sx={contextMenuItemsStyles}
         >
           {option.pinned && (
-            <Box component="span" sx={{ mr: '5px' }}>
+            <Typography component="span">
               <BookmarkTwoToneIcon sx={{ fontSize: 20 }} />
-            </Box>
+            </Typography>
           )}
-          {option.label}
+          <Typography component="p" sx={{ ml: 0.5 }}>
+            {option.label}
+          </Typography>
         </MenuItem>
       ))}
     </Menu>

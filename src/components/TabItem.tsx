@@ -1,6 +1,7 @@
-import { FC, useState, useCallback, useEffect, MouseEvent } from 'react';
+import { FC, useState, useCallback, useEffect, MouseEvent, useRef } from 'react';
 import { Box } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
+import { tabStyles, focusStyles } from '../style/style';
 
 type TypeProps = {
   label: string;
@@ -22,36 +23,7 @@ const TabItem: FC<TypeProps> = ({
   onDoubleClick,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const [lastClick, setLastClick] = useState<number | null>(null);
-
-  const focusStyles = {
-    color: '#FFFFFF',
-    backgroundColor: '#7F858D',
-    transform: 'translate(7px, 3px)',
-    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
-  };
-
-  const hoverStyles = {
-    backgroundColor: '#e0e0e0',
-  };
-
-  const getTabStyles = () => ({
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    padding: '10px',
-    height: 50,
-    transition: 'all 0.3s ease',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    position: 'relative',
-    borderTop: isActive ? '4px solid #1976d2' : '2px solid transparent',
-    fontFamily: 'Poppins',
-    ...(isPressed ? focusStyles : null),
-    '&:hover': !isPressed ? hoverStyles : null,
-    '&:active': focusStyles,
-  });
+  const lastClickRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleMouseUp = () => setIsPressed(false);
@@ -64,33 +36,31 @@ const TabItem: FC<TypeProps> = ({
   }, []);
 
   const handleMouseDown = useCallback((event: MouseEvent) => {
-    if (event.button === 0) {
-      setIsPressed(true);
-    }
+    setIsPressed(!event.button);
   }, []);
 
   const handleClick = useCallback(() => {
     const now = Date.now();
-    if (lastClick && now - lastClick < 300) {
+    if (lastClickRef.current && now - lastClickRef.current < 300) {
       onDoubleClick(value);
-      setLastClick(null);
+      lastClickRef.current = null;
     } else {
-      setLastClick(now);
+      lastClickRef.current = now;
       onClick(value);
     }
-  }, [onClick, onDoubleClick, lastClick, value]);
+  }, [onClick, onDoubleClick, value]);
 
   const handleContextMenu = useCallback(
     (event: MouseEvent) => {
       event.preventDefault();
       onContextMenu(event, value);
     },
-    [onContextMenu, value],
+    [onContextMenu],
   );
 
   return (
     <Box
-      sx={getTabStyles()}
+      sx={tabStyles({ isActive, isPressed, focusStyles })}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}

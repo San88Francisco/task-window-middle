@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback, FC } from 'react';
 import { Box } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
-import TabPanel from './TabPanel';
-import ToFaster from './ToFasten';
-import TabsSection from './TabsSection';
-import ContextMenu from './ContextMenu';
-import ActionButtons from './AddBtn';
+import TabPanel from '../components/TabPanel';
+import ToFaster from '../components/ToFasten';
+import TabsSection from '../components/TabsSection';
+import ContextMenu from '../components/ContextMenu';
+import { ActionButtons } from '../components/Btn/AddBtn';
 import { encodeTabOrder } from '../utils/encoding';
 import { decodeTabOrder } from '../utils/decoding';
 import { initialTabs } from '../utils/constants';

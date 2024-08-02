@@ -2,6 +2,7 @@ import { FC, MouseEvent } from 'react';
 import { Box } from '@mui/material';
 import TabGroup from './TabGroup';
 import { TabType } from '../types/TabType';
+import { tabSectionStyles } from '../style/style';
 
 type TypeProps = {
   pinnedTabs: TabType[];
@@ -21,27 +22,7 @@ const TabsSection: FC<TypeProps> = ({
   handleDoubleClick,
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        overflowX: 'auto',
-        cursor: 'pointer',
-        position: 'relative',
-        pb: 0.6,
-        '&::-webkit-scrollbar': {
-          height: '6px',
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: 'rgba(127, 133, 141, 0.2)',
-          borderRadius: '4px',
-          transition: 'all .3s ease',
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: 'rgba(127, 133, 141, 0.4)',
-        },
-      }}
-    >
+    <Box sx={tabSectionStyles}>
       <TabGroup
         tabs={pinnedTabs}
         onReorder={newPinnedTabs => handleReorder([...newPinnedTabs, ...unpinnedTabs])}
