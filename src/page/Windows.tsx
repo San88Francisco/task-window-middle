@@ -108,7 +108,6 @@ const Windows: FC = () => {
   return (
     <Box>
       <Box display="flex">
-        <ActionButtons />
         <TabsSection
           pinnedTabs={pinnedTabs}
           unpinnedTabs={unpinnedTabs}
