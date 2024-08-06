@@ -7,6 +7,4 @@ export type FocusStyles = {
 
 export type TabStylesParams = {
   isActive: boolean;
-  isPressed: boolean;
-  focusStyles: FocusStyles;
 };

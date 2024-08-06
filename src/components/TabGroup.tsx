@@ -2,6 +2,11 @@ import { FC, MouseEvent, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import TabItem from './TabItem';
 import { TabType } from '../types/TabType';
+import { whileDragStyles } from '../style/style';
+
+const isMobileDevice = () => {
+  return /Mobi|Android/i.test(navigator.userAgent);
+};
 
 type TabGroupProps = {
   tabs: TabType[];
@@ -21,7 +26,6 @@ const TabGroup: FC<TabGroupProps> = ({
   const [isHeld, setIsHeld] = useState(false);
 
   const handleHoldChange = (held: boolean) => {
-    console.log('✌️held --->', held);
     setIsHeld(held);
   };
 
@@ -33,7 +37,12 @@ const TabGroup: FC<TabGroupProps> = ({
       style={{ display: 'flex' }}
     >
       {tabs.map(tab => (
-        <Reorder.Item key={tab.value} value={tab} dragListener={isHeld}>
+        <Reorder.Item
+          key={tab.value}
+          value={tab}
+          dragListener={!isMobileDevice() || isHeld}
+          whileDrag={whileDragStyles}
+        >
           <TabItem
             label={tab.label}
             value={tab.value}

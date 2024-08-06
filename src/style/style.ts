@@ -1,5 +1,10 @@
 import { CSSObject } from '@mui/material/styles';
-import { FocusStyles, TabStylesParams } from '../types/TabStyleType';
+import { TabStylesParams } from '../types/TabStyleType';
+import { lightBlue } from '@mui/material/colors';
+
+const colorBlue50 = lightBlue[50];
+export const colorBlue100 = lightBlue[100];
+export const colorBlueA400 = lightBlue.A400;
 
 export const contextMenuStyles = {
   maxHeight: 48 * 10.5,
@@ -22,42 +27,31 @@ export const contextMenuItemsStyles = {
   },
 }
 
-export const focusStyles: FocusStyles = {
-  color: '#FFFFFF',
-  backgroundColor: '#7F858D',
-  transform: 'translate(7px, 3px)',
-  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-};
-
-
-export const tabStyles = ({
-  isActive,
-  isPressed,
-  focusStyles,
-}: TabStylesParams): CSSObject => ({
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'pointer',
-  padding: '10px',
-  height: 50,
-  position: 'relative',
-  borderTop: isActive ? '4px solid #1976d2' : '2px solid transparent',
-  fontFamily: 'Poppins',
-  overflow: 'hidden', 
-  ...(isPressed ? focusStyles : null),
-
-  '&:hover': isPressed ? null : { backgroundColor: '#e0e0e0' },
-  '&:hover .deleteIcon': isPressed ? null : {
+export const tabStyles = ({ isActive }: TabStylesParams): CSSObject => {
+  return {
     display: 'flex',
-  },
-  '&:hover .label': isPressed ? null : {
-    maxWidth: 'calc(100% - 40px)',
-  },
-  '&:active': isPressed ? focusStyles : null,
-});
-
-
-
+    alignItems: 'center',
+    cursor: 'pointer',
+    padding: '10px',
+    height: 50,
+    position: 'relative',
+    fontFamily: 'Poppins',
+    overflow: 'hidden',
+    userSelect: 'none',
+    '&:hover': {
+      backgroundColor: colorBlue100,
+      borderRadius: '0 0 5px 5px',
+    },
+    borderTop: isActive ? '4px solid' : 'none',
+    borderColor: colorBlueA400,
+    '&:hover .deleteIcon': {
+      display: 'flex',
+    },
+    '&:hover .label': {
+      maxWidth: 'calc(100% - 40px)',
+    },
+  };
+};
 
 export const tabPanelStyles = {
   padding: '20px',
@@ -95,4 +89,36 @@ export const menuItemStyles = {
   p: 1,
   border: '2px solid rgba(174, 182, 206, 0.2)',
   borderRadius: 1
+}
+
+export const whileDragStyles = {
+  backgroundColor: colorBlue50,
+  borderRadius: '0 0 5px 5px',
+}
+
+export const itemBoxStyles = {
+  flexGrow: 1,
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  position: 'relative',
+}
+
+export const itemPStyles = {
+  flex: '1 1 0',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  maxWidth: '100%',
+}
+
+export const itemSpanStyles = {
+  display: 'none',
+  position: 'absolute',
+  right: 0,
+  cursor: 'pointer',
+  alignItems: 'center',
+  width: '30px',
+  height: '100%',
+  justifyContent: 'center',
 }

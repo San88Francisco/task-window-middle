@@ -5,7 +5,6 @@ import TabPanel from '../components/TabPanel';
 import ToFaster from '../components/ToFasten';
 import TabsSection from '../components/TabsSection';
 import ContextMenu from '../components/ContextMenu';
-import { ActionButtons } from '../components/Btn/AddBtn';
 import { encodeTabOrder } from '../utils/encoding';
 import { decodeTabOrder } from '../utils/decoding';
 import { initialTabs } from '../utils/constants';
