@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, WheelEvent } from 'react';
 import { Box } from '@mui/material';
 import TabGroup from './TabGroup';
 import { TabType } from '../types/TabType';
@@ -21,8 +21,16 @@ const TabsSection: FC<TypeProps> = ({
   handleContextMenu,
   handleDoubleClick,
 }) => {
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    // Прокручування горизонтально
+    if (event.deltaY !== 0) {
+      event.preventDefault(); // Запобігає стандартній вертикальній прокрутці
+      event.currentTarget.scrollLeft += event.deltaY;
+    }
+  };
+
   return (
-    <Box sx={tabSectionStyles}>
+    <Box sx={tabSectionStyles} onWheel={handleWheel}>
       <TabGroup
         tabs={pinnedTabs}
         onReorder={newPinnedTabs => handleReorder([...newPinnedTabs, ...unpinnedTabs])}

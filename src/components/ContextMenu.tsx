@@ -1,9 +1,10 @@
 import { FC, MouseEvent } from 'react';
-import { Menu, MenuItem, Typography } from '@mui/material';
-import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
+import { useTheme, useMediaQuery } from '@mui/material';
 import { TabType } from '../types/TabType';
 import { ViewMoreBtn } from './Btn/ViewMoreBtn';
-import { contextMenuItemsStyles, contextMenuStyles } from '../style/style';
+import { MenuLongContent } from './ContentMenus/MenuLongContent';
+import DrawerContent from './ContentMenus/DrawerContent';
+import useDrawer from '../hook/useDrawer';
 
 type TypeProps = {
   anchorEl: null | HTMLElement;
@@ -20,38 +21,36 @@ const ContextMenu: FC<TypeProps> = ({
   tabs,
   handleMenuItemClick,
   handleMenuClose,
-  handleMenuClick,
-}) => (
-  <>
-    <ViewMoreBtn open={open} handleMenuClick={handleMenuClick} />
-    <Menu
-      id="long-menu"
-      MenuListProps={{ 'aria-labelledby': 'long-button' }}
-      anchorEl={anchorEl}
-      open={open}
-      onClose={handleMenuClose}
-      PaperProps={{
-        style: contextMenuStyles,
-      }}
-    >
-      {tabs.map(option => (
-        <MenuItem
-          key={option.value}
-          onClick={() => handleMenuItemClick(option.value)}
-          sx={contextMenuItemsStyles}
-        >
-          {option.pinned && (
-            <Typography component="span">
-              <BookmarkTwoToneIcon sx={{ fontSize: 20 }} />
-            </Typography>
-          )}
-          <Typography component="p" sx={{ ml: 0.5 }}>
-            {option.label}
-          </Typography>
-        </MenuItem>
-      ))}
-    </Menu>
-  </>
-);
+}) => {
+  const theme = useTheme();
+  const isLgScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { state, toggleDrawer } = useDrawer();
+
+  return (
+    <>
+      <ViewMoreBtn
+        open={state.bottom}
+        handleMenuClick={(event: MouseEvent<HTMLElement>) => toggleDrawer('bottom', true)(event)}
+      />
+      {isLgScreen ? (
+        <DrawerContent
+          state={state}
+          toggleDrawer={toggleDrawer}
+          tabs={tabs}
+          handleMenuItemClick={handleMenuItemClick}
+        />
+      ) : (
+        <MenuLongContent
+          anchorEl={anchorEl}
+          open={open}
+          handleMenuClose={handleMenuClose}
+          tabs={tabs}
+          handleMenuItemClick={handleMenuItemClick}
+        />
+      )}
+    </>
+  );
+};
 
 export default ContextMenu;
