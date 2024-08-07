@@ -1,11 +1,7 @@
 import { CSSObject } from '@mui/material/styles';
 import { TabStylesParams } from '../types/TabStyleType';
-import { lightBlue } from '@mui/material/colors';
 import { TargetAndTransition } from 'framer-motion';
 
-const colorBlue50 = lightBlue[50];
-export const colorBlue100 = lightBlue[100];
-export const colorBlueA400 = lightBlue.A400;
 
 export const contextMenuStyles = {
   maxHeight: 48 * 10.5,
@@ -39,25 +35,26 @@ export const tabStyles = ({ isActive }: TabStylesParams): CSSObject => {
     fontFamily: 'Poppins',
     overflow: 'hidden',
     userSelect: 'none',
-    '&:hover': {
-      backgroundColor: colorBlue100,
-      borderRadius: '0 0 5px 5px',
+    borderTop: isActive ? '3px solid' : 'none',
+    borderColor: 'rgba(70, 144, 226, 1)',
+    '&:hover ': {
+      backgroundColor: 'rgba(244, 247, 249, 1)',
+      color: 'rgba(52, 52, 52, 1)',
     },
-    borderTop: isActive ? '4px solid' : 'none',
-    borderColor: colorBlueA400,
     '&:hover .deleteIcon': {
       display: 'flex',
     },
     '&:hover .label': {
-      maxWidth: 'calc(100% - 40px)',
+      maxWidth: 'calc(100% - 35%)',
     },
+
   };
 };
 
 export const tabPanelStyles = {
+  height: '100vh',
   padding: '20px',
-  border: '1px solid #ddd',
-  borderTop: 'none',
+  border: '15px solid rgba(244, 247, 249, 1)',
 };
 
 export const tabSectionStyles = {
@@ -66,7 +63,6 @@ export const tabSectionStyles = {
   overflowX: 'auto',
   cursor: 'pointer',
   position: 'relative',
-  pb: 0.6,
   '&::-webkit-scrollbar': {
     height: '6px',
   },
@@ -138,6 +134,17 @@ export const drawerBoxStyles = {
   margin: '10px auto',
   width: 100,
   height: 5,
-  backgroundColor: 'black',
+  backgroundColor: 'rgba(127, 133, 141, 0.2)',
   borderRadius: 10,
+}
+
+export const viewMoreBtnStyles = {
+  width: 50,
+  height: 50,
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  backgroundColor: 'rgba(244, 247, 249, 0.4)',
+  color: 'rgba(52, 52, 52, 1)',
+  borderRadius: 0,
 }

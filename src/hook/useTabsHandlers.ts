@@ -20,7 +20,8 @@ export const useTabsHandlers = (
       });
       handleClose();
     }
-  }, []);
+  }, [contextMenuTab]);
+
 
   const handleReorder = useCallback((newTabs: TabType[]) => setTabs(sortTabs(newTabs)), [setTabs]);
 

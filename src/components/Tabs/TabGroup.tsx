@@ -2,7 +2,6 @@ import { FC, MouseEvent, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { TabItem } from './TabItem';
 import { TabType } from '../../types/TabType';
-import { whileDragStyles } from '../../style/style';
 import { isMobileDevice } from '../../utils/divece';
 
 type TabGroupProps = {
@@ -39,7 +38,17 @@ export const TabGroup: FC<TabGroupProps> = ({
           key={tab.value}
           value={tab}
           dragListener={!isMobileDevice() || isHeld}
-          whileDrag={whileDragStyles(isHeld)}
+          whileDrag={{
+            backgroundColor: 'rgba(127, 133, 141, 1)',
+            color: 'rgba(255, 255, 255, 1)',
+            position: 'relative',
+            top: 2,
+            left: 5,
+          }}
+          style={{
+            color: 'rgba(127, 133, 141, 1)',
+            backgroundColor: !!tab.selected ? 'rgba(244, 247, 249, 1)' : 'inherit',
+          }}
         >
           <TabItem
             label={tab.label}

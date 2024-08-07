@@ -29,7 +29,7 @@ const Windows: FC = () => {
 
   return (
     <>
-      <Box display="flex">
+      <Box display="flex" fontFamily="">
         <TabsSection
           pinnedTabs={pinnedTabs}
           unpinnedTabs={unpinnedTabs}
@@ -38,15 +38,15 @@ const Windows: FC = () => {
           handleContextMenu={handleContextMenu}
           handleDoubleClick={handleDoubleClick}
         />
-        <ContextMenu
-          anchorEl={menuAnchorEl}
-          open={!!menuAnchorEl}
-          tabs={tabs}
-          handleMenuItemClick={handleMenuItemClick}
-          handleMenuClose={handleMenuClose}
-          handleMenuClick={handleMenuClick}
-        />
       </Box>
+      <ContextMenu
+        anchorEl={menuAnchorEl}
+        open={!!menuAnchorEl}
+        tabs={tabs}
+        handleMenuItemClick={handleMenuItemClick}
+        handleMenuClose={handleMenuClose}
+        handleMenuClick={handleMenuClick}
+      />
       {tabs.map(tab => (
         <TabPanel key={tab.value} value={tab.value} activeValue={activeTab}>
           {tab.label}

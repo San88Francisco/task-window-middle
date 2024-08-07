@@ -1,6 +1,7 @@
 import { FC, MouseEvent } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { viewMoreBtnStyles } from '../../style/style';
 
 type PropsType = {
   open: boolean;
@@ -9,7 +10,7 @@ type PropsType = {
 
 export const ViewMoreBtn: FC<PropsType> = ({ open, handleMenuClick }) => {
   return (
-    <Tooltip title="View more" sx={{ width: 60, height: 60 }}>
+    <Tooltip title="View more" sx={viewMoreBtnStyles}>
       <IconButton
         aria-label="more"
         id="long-button"
