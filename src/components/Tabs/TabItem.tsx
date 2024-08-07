@@ -2,8 +2,8 @@ import { FC, MouseEvent } from 'react';
 import { Box, Typography } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { itemBoxStyles, itemPStyles, itemSpanStyles, tabStyles } from '../style/style';
-import { useTabItem } from '../hook/useTabItem';
+import { itemBoxStyles, itemPStyles, itemSpanStyles, tabStyles } from '../../style/style';
+import { useTabItem } from '../../hook/useTabItem';
 
 type TypeProps = {
   label: string;
@@ -16,7 +16,7 @@ type TypeProps = {
   onHoldChange: (held: boolean) => void;
 };
 
-const TabItem: FC<TypeProps> = ({
+export const TabItem: FC<TypeProps> = ({
   label,
   value,
   isActive,
@@ -55,5 +55,3 @@ const TabItem: FC<TypeProps> = ({
     </Box>
   );
 };
-
-export default TabItem;

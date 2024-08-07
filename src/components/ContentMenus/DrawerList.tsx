@@ -2,33 +2,21 @@ import { FC } from 'react';
 import { Box, List, MenuItem, Typography } from '@mui/material';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 import { TabType } from '../../types/TabType';
-import { contextMenuItemsStyles } from '../../style/style';
+import { contextMenuItemsStyles, drawerBoxStyles, drawerPaperStyles } from '../../style/style';
 
-interface DrawerListProps {
+type PropsType = {
   tabs: TabType[];
   handleMenuItemClick: (value: string) => void;
-}
+};
 
-const DrawerList: FC<DrawerListProps> = ({ tabs, handleMenuItemClick }) => (
+export const DrawerList: FC<PropsType> = ({ tabs, handleMenuItemClick }) => (
   <Box
-    sx={{
-      width: 'auto',
-      height: '85vh',
-      overflowY: 'auto',
-    }}
+    sx={drawerPaperStyles}
     role="presentation"
     onClick={event => event.stopPropagation()}
     onKeyDown={event => event.stopPropagation()}
   >
-    <Box
-      sx={{
-        margin: '10px auto',
-        width: 100,
-        height: 5,
-        backgroundColor: 'black',
-        borderRadius: 10,
-      }}
-    />
+    <Box sx={drawerBoxStyles} />
     <List>
       {tabs.map(option => (
         <MenuItem
@@ -50,4 +38,3 @@ const DrawerList: FC<DrawerListProps> = ({ tabs, handleMenuItemClick }) => (
   </Box>
 );
 
-export default DrawerList;

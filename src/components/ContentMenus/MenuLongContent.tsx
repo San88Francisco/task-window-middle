@@ -7,8 +7,8 @@ import { contextMenuItemsStyles, contextMenuStyles } from '../../style/style';
 type PropsType = {
   anchorEl: null | HTMLElement;
   open: boolean;
-  handleMenuClose: (event: MouseEvent<HTMLElement>) => void;
   tabs: TabType[];
+  handleMenuClose: (event: MouseEvent<HTMLElement>) => void;
   handleMenuItemClick: (value: string) => void;
 };
 

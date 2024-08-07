@@ -1,6 +1,7 @@
 import { CSSObject } from '@mui/material/styles';
 import { TabStylesParams } from '../types/TabStyleType';
 import { lightBlue } from '@mui/material/colors';
+import { TargetAndTransition } from 'framer-motion';
 
 const colorBlue50 = lightBlue[50];
 export const colorBlue100 = lightBlue[100];
@@ -91,10 +92,14 @@ export const menuItemStyles = {
   borderRadius: 1
 }
 
-export const whileDragStyles = {
-  backgroundColor: colorBlue50,
-  borderRadius: '0 0 5px 5px',
-}
+export const whileDragStyles = (isHeld: boolean): TargetAndTransition => {
+  return {
+    backgroundColor: 'colorBlue50',
+    borderRadius: '0 0 5px 5px',
+    position: 'relative',
+    top: isHeld ? 5 : 0,
+  };
+};
 
 export const itemBoxStyles = {
   flexGrow: 1,
@@ -121,4 +126,18 @@ export const itemSpanStyles = {
   width: '30px',
   height: '100%',
   justifyContent: 'center',
+}
+
+export const drawerPaperStyles = {
+  width: 'auto',
+  height: '85vh',
+  overflowY: 'auto',
+}
+
+export const drawerBoxStyles = {
+  margin: '10px auto',
+  width: 100,
+  height: 5,
+  backgroundColor: 'black',
+  borderRadius: 10,
 }

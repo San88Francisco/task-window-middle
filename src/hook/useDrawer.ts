@@ -1,11 +1,9 @@
 import { useState, MouseEvent, KeyboardEvent } from 'react';
 
 const useDrawer = () => {
-  const [state, setState] = useState({
-    bottom: false,
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDrawer = (anchor: 'bottom', open: boolean) => (event: KeyboardEvent | MouseEvent) => {
+  const toggleDrawer = (open: boolean) => (event: KeyboardEvent | MouseEvent) => {
     if (
       event &&
       event.type === 'keydown' &&
@@ -13,10 +11,10 @@ const useDrawer = () => {
     ) {
       return;
     }
-    setState({ ...state, [anchor]: open });
+    setIsOpen(open);
   };
 
-  return { state, toggleDrawer, setState };
+  return { isOpen, toggleDrawer };
 };
 
 export default useDrawer;

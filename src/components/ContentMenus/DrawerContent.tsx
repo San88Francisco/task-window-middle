@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import { SwipeableDrawer } from '@mui/material';
-import DrawerList from './DrawerList';
+import { DrawerList } from './DrawerList';
 import { TabType } from '../../types/TabType';
 
-interface DrawerContentProps {
-  state: { bottom: boolean };
-  toggleDrawer: any;
+type PropsType = {
+  state: boolean;
   tabs: TabType[];
+  toggleDrawer: (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
   handleMenuItemClick: (value: string) => void;
-}
+};
 
-const DrawerContent: FC<DrawerContentProps> = ({
+export const DrawerContent: FC<PropsType> = ({
   state,
   toggleDrawer,
   tabs,
@@ -19,9 +19,9 @@ const DrawerContent: FC<DrawerContentProps> = ({
   return (
     <SwipeableDrawer
       anchor="bottom"
-      open={state.bottom}
-      onClose={toggleDrawer('bottom', false)}
-      onOpen={toggleDrawer('bottom', true)}
+      open={state}
+      onClose={toggleDrawer(false)}
+      onOpen={toggleDrawer(true)}
       PaperProps={{
         sx: {
           height: '90vh',
@@ -35,4 +35,3 @@ const DrawerContent: FC<DrawerContentProps> = ({
   );
 };
 
-export default DrawerContent;

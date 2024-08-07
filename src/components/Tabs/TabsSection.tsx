@@ -1,8 +1,8 @@
 import { FC, MouseEvent, WheelEvent } from 'react';
 import { Box } from '@mui/material';
-import TabGroup from './TabGroup';
-import { TabType } from '../types/TabType';
-import { tabSectionStyles } from '../style/style';
+import { TabGroup } from './TabGroup';
+import { TabType } from '../../types/TabType';
+import { tabSectionStyles } from '../../style/style';
 
 type TypeProps = {
   pinnedTabs: TabType[];
@@ -13,7 +13,7 @@ type TypeProps = {
   handleDoubleClick: (value: string) => void;
 };
 
-const TabsSection: FC<TypeProps> = ({
+export const TabsSection: FC<TypeProps> = ({
   pinnedTabs,
   unpinnedTabs,
   handleReorder,
@@ -22,9 +22,8 @@ const TabsSection: FC<TypeProps> = ({
   handleDoubleClick,
 }) => {
   const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
-    // Прокручування горизонтально
     if (event.deltaY !== 0) {
-      event.preventDefault(); // Запобігає стандартній вертикальній прокрутці
+      event.preventDefault();
       event.currentTarget.scrollLeft += event.deltaY;
     }
   };
@@ -48,5 +47,3 @@ const TabsSection: FC<TypeProps> = ({
     </Box>
   );
 };
-
-export default TabsSection;

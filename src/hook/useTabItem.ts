@@ -7,7 +7,7 @@ type UseTabItemProps = {
   onDoubleClick: (value: string) => void;
   onHoldChange: (held: boolean) => void;
 };
-
+const TIMER = 2000
 export const useTabItem = ({
   value,
   onClick,
@@ -38,22 +38,22 @@ export const useTabItem = ({
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('touchend', handleMouseUp);
     };
-  }, [isPressed, onHoldChange]);
+  }, [isPressed]);
 
   const handleMouseDown = useCallback(() => {
     setIsPressed(true);
     holdTimeoutRef.current = window.setTimeout(() => {
       setIsPressed(false);
       onHoldChange(true);
-    }, 2000);
-  }, [onHoldChange]);
+    }, TIMER);
+  }, []);
 
   const handleTouchStart = useCallback(
     (e: TouchEvent) => {
       e.preventDefault();
       handleMouseDown();
     },
-    [handleMouseDown],
+    [],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -65,7 +65,7 @@ export const useTabItem = ({
       setIsPressed(false);
       onHoldChange(false);
     }
-  }, [isPressed, onHoldChange]);
+  }, []);
 
   const handleClick = useCallback(() => {
     const now = Date.now();
@@ -77,14 +77,14 @@ export const useTabItem = ({
       lastClickRef.current = now;
       onClick(value);
     }
-  }, [onClick, onDoubleClick, value]);
+  }, []);
 
   const handleContextMenu = useCallback(
     (event: MouseEvent) => {
       event.preventDefault();
       onContextMenu(event, value);
     },
-    [onContextMenu, value],
+    [],
   );
 
   return {
