@@ -20,7 +20,6 @@ export const TabGroup: FC<TabGroupProps> = ({
   onDoubleClick,
 }) => {
   const [isHeld, setIsHeld] = useState(false);
-  console.log('✌️isHeld --->', isHeld);
 
   const handleHoldChange = (held: boolean) => {
     setIsHeld(held);
