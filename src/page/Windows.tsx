@@ -29,7 +29,7 @@ const Windows: FC = () => {
 
   return (
     <>
-      <Box display="flex" fontFamily="">
+      <Box display="flex">
         <TabsSection
           pinnedTabs={pinnedTabs}
           unpinnedTabs={unpinnedTabs}
