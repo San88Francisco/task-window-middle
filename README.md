@@ -1,30 +1,37 @@
-# React + TypeScript + Vite
+# Test Task for Mid-Level Developer Position
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was completed as a test task for a mid-level developer position.
 
-Currently, two official plugins are available:
+## Project Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project involves implementing tab components according to the design provided in Figma. The main goal of the task is to demonstrate proficiency in working with UI components, styling, and dynamic interaction between elements.
 
-## Expanding the ESLint configuration
+## Resources
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Figma Design:** [View Design](https://www.figma.com/design/5cE9dhiSJprBQSbkmL6Snp/exonn-tabs?node-id=1-68&t=KfhABLRp3yxsf9bZ-0)
+- **Task Documentation:** [View Document](https://docs.google.com/document/d/1gOkRHaR3y-ZOwma0NbvEuWlF7AdwaZcUoMvP7EKDFPM/edit)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation and Usage
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+To run this project locally, follow these steps:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the project:
+    ```bash
+    npm run dev
+    ```
+
+## Technologies Used
+
+- HTML/CSS/JavaScript
+- React/TS
+- MUI
+
+
