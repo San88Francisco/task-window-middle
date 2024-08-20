@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, MouseEvent } from 'react';
 
 export const useContextMenu = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [contextMenuTab, setContextMenuTab] = useState<string | null>(null);
-  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handleContextMenu = useCallback((event: React.MouseEvent, value: string) => {
+  const handleContextMenu = useCallback((event: MouseEvent, value: string) => {
     event.preventDefault();
     setAnchorEl(event.currentTarget as HTMLElement);
     setContextMenuTab(value);
@@ -16,7 +16,7 @@ export const useContextMenu = () => {
     setMenuAnchorEl(null);
   }, []);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: MouseEvent<HTMLElement>) => {
     setMenuAnchorEl(event.currentTarget);
   };
 

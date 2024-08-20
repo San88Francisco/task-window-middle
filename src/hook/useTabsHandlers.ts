@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { TabType } from '../types/TabType';
 
 export const useTabsHandlers = (
   setActiveTab: (value: string) => void,
   _tabs: TabType[],
-  setTabs: React.Dispatch<React.SetStateAction<TabType[]>>,
+  setTabs: Dispatch<SetStateAction<TabType[]>>,
   contextMenuTab: string | null,
   handleClose: () => void
 ) => {

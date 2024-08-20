@@ -1,6 +1,6 @@
 import { useState, MouseEvent, KeyboardEvent } from 'react';
 
-const useDrawer = () => {
+export const useDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => (event: KeyboardEvent | MouseEvent) => {
@@ -17,4 +17,3 @@ const useDrawer = () => {
   return { isOpen, toggleDrawer };
 };
 
-export default useDrawer;
